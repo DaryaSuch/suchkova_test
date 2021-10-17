@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.810.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "go", "go\go.csproj", "{30E9D3E7-8A1C-44F1-8248-A7205377D724}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|anycpu = Debug|anycpu
+		Release|anycpu = Release|anycpu
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30E9D3E7-8A1C-44F1-8248-A7205377D724}.Debug|anycpu.ActiveCfg = Debug|anycpu
+		{30E9D3E7-8A1C-44F1-8248-A7205377D724}.Debug|anycpu.Build.0 = Debug|anycpu
+		{30E9D3E7-8A1C-44F1-8248-A7205377D724}.Release|anycpu.ActiveCfg = Release|anycpu
+		{30E9D3E7-8A1C-44F1-8248-A7205377D724}.Release|anycpu.Build.0 = Release|anycpu
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C39B77AE-58DA-4C46-AC1C-7BD986BC9BCE}
+	EndGlobalSection
+EndGlobal
