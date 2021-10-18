@@ -31,7 +31,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VarExch.cs" />
     <Compile Include="GetHTML.cs" />
-    <Compile Include="Wait.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

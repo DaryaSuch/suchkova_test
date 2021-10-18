@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
-using System.Web;
-using System.Xml;
 using System.Xml.Linq;
 
 
@@ -15,14 +12,11 @@ namespace go
             using (WebClient web1 = new WebClient())
             {
                 string text = web1.DownloadString(url);
-
                 string result = XElement.Parse(text).ToString();
                 using (StreamWriter writer = File.CreateText("DailyXmlFile.xml"))
                 {
                     writer.WriteLine(result);
                 }
-
-
             }
         }
     }

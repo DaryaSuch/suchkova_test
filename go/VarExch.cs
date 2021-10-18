@@ -1,10 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Net;
-using System.Web;
 using System.Xml;
-using System.Xml.Linq;
-using System.Windows.Forms;
+
 
 namespace go
 {
@@ -12,29 +8,15 @@ namespace go
     {
         public static void VariableExch()
         {
-
             string Nominal = "";
             string Value = "";
             Console.WriteLine("Введите дату в формате dd.MM.yyyy :");
             string date = Console.ReadLine().ToString();
             string url = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=" + date;
             GetHTML.getHTML(url);
-            Console.WriteLine("Введите дату в формате dd.MM.yyyy :");
-            string name = Console.ReadLine().ToString();
-            string charcode = "";
+            Console.WriteLine("Введите трёхбуквенный код валюты :");
+            string charcode = Console.ReadLine().ToString().ToUpper();
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load("ListValute.xml");
-            for (int i = 0; i < 34; i++)
-            {
-                string Name = xDoc.GetElementsByTagName("Name")[i].InnerText;
-                if (Name == name)
-                {
-                    charcode = xDoc.GetElementsByTagName("CharCode")[i].InnerText;
-                    Console.WriteLine(name);
-                    Console.WriteLine(charcode);
-                }
-            }
-            
             xDoc.Load("DailyXmlFile.xml");
             for (int i = 0; i < 34; i++)
             {
@@ -43,14 +25,14 @@ namespace go
                 {
                     Nominal = xDoc.GetElementsByTagName("Nominal")[i].InnerText;
                     Value = xDoc.GetElementsByTagName("Value")[i].InnerText;
-                    Console.WriteLine(Nominal);
-                    Console.WriteLine(Value);
+                    Console.WriteLine("Номинал - " + Nominal);
+                    Console.WriteLine("Курс - " + Value);
+                    if (Convert.ToInt16(Nominal) > 1) 
+                    {
+                        Console.WriteLine("Курс / Номинал - " + (Convert.ToDouble(Value) / Convert.ToInt16(Nominal)).ToString());
+                    }
                 }
             }
-
-            
-
-
         }
     }
 }
