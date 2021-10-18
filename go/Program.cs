@@ -37,7 +37,7 @@ namespace go
                 double nom = Convert.ToDouble(xDoc.GetElementsByTagName("Nominal")[i].InnerText);
                 double r = val / nom;
 
-                string sql = "use"+db+";" + "create table if not exists Exchange_Rates (id int NOT NULL AUTO_INCREMENT,Date date DEFAULT NULL, CharCode varchar(45) DEFAULT NULL,Val double DEFAULT NULL,PRIMARY KEY(id)) ; "+
+                string sql = "use " + db + ";" + "create table if not exists Exchange_Rates (id int NOT NULL AUTO_INCREMENT,Date date DEFAULT NULL, CharCode varchar(45) DEFAULT NULL,Val double DEFAULT NULL,PRIMARY KEY(id)) ; "+
                     " insert into Exchange_Rates (Date,CharCode,Val) values ('" + sqldata + "','" + name + "'," + r.ToString(System.Globalization.CultureInfo.InvariantCulture) + ");";
                 MySqlCommand command = new MySqlCommand(sql, conn);
                 command.ExecuteNonQuery();
@@ -45,6 +45,7 @@ namespace go
             }
             conn.Close();
             VarExch.VariableExch();
+            Console.ReadKey();
         }
 
     }
