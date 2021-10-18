@@ -11,7 +11,6 @@
 /Users/DaryaSychkova/Projects/go/go/bin/Debug/K4os.Compression.LZ4.dll
 /Users/DaryaSychkova/Projects/go/go/bin/Debug/K4os.Compression.LZ4.Streams.dll
 /Users/DaryaSychkova/Projects/go/go/bin/Debug/K4os.Hash.xxHash.dll
-/Users/DaryaSychkova/Projects/go/go/bin/Debug/MySql.Data.dll
 /Users/DaryaSychkova/Projects/go/go/bin/Debug/System.Buffers.dll
 /Users/DaryaSychkova/Projects/go/go/bin/Debug/System.Memory.dll
 /Users/DaryaSychkova/Projects/go/go/bin/Debug/System.Numerics.Vectors.dll

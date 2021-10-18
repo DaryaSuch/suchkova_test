@@ -1,14 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Net;
-using System.Web;
 using System.Xml;
-using System.Xml.Linq;
-using System.Text;
 using MySql.Data.MySqlClient;
-
-
-
 
 
 
@@ -17,62 +9,46 @@ namespace go
     class MainClass
     {
         
-
-
-        static void getHTML(string url)
-        {
-            //WebRequest request = WebRequest.Create(url);
-            //WebResponse response = request.GetResponse();
-            //Stream stream = response.GetResponseStream();
-            //StreamReader reader = new StreamReader(stream);
-            //string result = reader.ReadToEnd();
-            //string res = XElement.Parse(result).ToString();
-            //StreamWriter writer = new StreamWriter("EmptyXmlFile.xml", false);
-            //writer.WriteLine(res);
-            using (WebClient web1 = new WebClient())
-            {
-                string text = web1.DownloadString(url);
-                
-                
-
-                string result = XElement.Parse(text).ToString();
-                using (StreamWriter writer = File.CreateText("EmptyXmlFile.xml"))
-                {
-                    writer.WriteLine(result);
-                }
-                
-                
-            }
-
-        }
-        
         public static void Main(string[] args)
         {
+
+            Wait.TimeWait();
+
+            DateTime today = DateTime.Today;
+            string data = today.ToString("dd.MM.yyyy");
+            string url = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=" + data;
+            GetHTML.getHTML(url);
             
-
-            string url = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=21.08.2019";
-            getHTML(url);
-
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load("EmptyXmlFile.xml");
-            string connect = "server=localhost;user=root;database=kurse;password='';";
+            xDoc.Load("DailyXmlFile.xml");
+            Console.WriteLine("Введите хост: ");
+            string host = Console.ReadLine().ToString();
+            Console.WriteLine("Введите пользователя: ");
+            string usr = Console.ReadLine().ToString();
+            Console.WriteLine("Введите базу данных: ");
+            string db = Console.ReadLine().ToString();
+            Console.WriteLine("Введите пароль: ");
+            string psw = Console.ReadLine().ToString();
+            string connect = "server="+host+";user="+usr+";database="+db+";password="+psw+";";
             MySqlConnection conn = new MySqlConnection(connect);
             conn.Open();
-            string a = "12";
-            string sql = "if exists (select 1 from dmy where den="+a+") begin insert into (den) values( "+a+" ) end; else create table"+ a+";";
 
-            //for (int i = 0; i < 34; i++)
-            //{
-            //    string el = xDoc.GetElementsByTagName("NumCode")[i].InnerText;
-            //    string ef = xDoc.GetElementsByTagName("Value")[i].InnerText;
+            string sqldata = today.ToString("yyyy-MM-dd");
+            for (int i = 0; i < 34; i++)
+            {
+                string name = xDoc.GetElementsByTagName("CharCode")[i].InnerText;
+                double val = Convert.ToDouble(xDoc.GetElementsByTagName("Value")[i].InnerText);
+                double nom = Convert.ToDouble(xDoc.GetElementsByTagName("Nominal")[i].InnerText);
+                double r = val / nom;
 
-            //    string sql = "insert into tist (name,val) values ('" +ef+ "',"+el+");";
+                string sql = "use kurse;" + "create table if not exists Exchange_Rates (id int NOT NULL AUTO_INCREMENT,Date date DEFAULT NULL, CharCode varchar(45) DEFAULT NULL,Val double DEFAULT NULL,PRIMARY KEY(id)) ; "+
+                    " insert into Exchange_Rates (Date,CharCode,Val) values ('" + sqldata + "','" + name + "'," + r.ToString(System.Globalization.CultureInfo.InvariantCulture) + ");";
                 MySqlCommand command = new MySqlCommand(sql, conn);
                 command.ExecuteNonQuery();
 
-            //}
+            }
             conn.Close();
-
+            VarExch.VariableExch();
         }
 
     }
